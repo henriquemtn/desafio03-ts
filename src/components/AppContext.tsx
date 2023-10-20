@@ -1,31 +1,34 @@
-import { createContext, useEffect, useState } from "react"
-import { getAllLocalStorage } from "../services/storage"
+import { createContext, useEffect, useState } from "react";
+import { getAllLocalStorage } from "../services/storage";
 
 interface IAppContext {
-    user: string,
-    isLoggedIn: boolean,
-    setIsLoggedIn: (isLoggedIn: boolean) => void
+  user: string,
+  isLoggedIn: boolean,
+  setIsLoggedIn: (isLoggedIn: boolean) => void
 }
-  
-export const AppContext = createContext({} as IAppContext)
-  
+
+export const AppContext = createContext({} as IAppContext);
+
 export const AppContextProvider = ({ children }: any) => {
-    const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
+  const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 
-    const storage = getAllLocalStorage()
+  const storage = getAllLocalStorage()
 
-    useEffect(() => {
-      if(storage){
-        const { login } = JSON.parse(storage)
-        setIsLoggedIn(login)
-      }
-    }, [])
+  useEffect(() => {
+    if(storage){
+      const { login } = JSON.parse(storage)
+      setIsLoggedIn(login)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-    const user = 'nathally'
   
-    return (
-      <AppContext.Provider value={{ user, isLoggedIn, setIsLoggedIn }}>
-        { children }
-      </AppContext.Provider>
-    )
+  
+  const user = 'picles'
+
+  return (
+    <AppContext.Provider value={{ user, isLoggedIn, setIsLoggedIn }}>
+      {children}
+    </AppContext.Provider>
+  )
 }
